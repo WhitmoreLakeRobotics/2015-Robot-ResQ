@@ -281,7 +281,6 @@ public class PushBotAutoSensors extends PushBotTelemetrySensors
         //
         update_telemetry (); // Update common telemetry
         telemetry.addData ("11", "Drive State: " + v_state);
-        telemetry.addData ("12", "Arm State: " + v_arm_state);
 
     } // loop
 
