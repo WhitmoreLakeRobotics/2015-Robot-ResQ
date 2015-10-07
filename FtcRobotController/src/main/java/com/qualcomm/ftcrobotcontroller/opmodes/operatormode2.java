@@ -28,8 +28,8 @@ public class operatormode2 extends OpMode {
 
     @Override
     public void loop() {
-        dc_drive_left.setPower(gamepad1.left_stick_y);
+        dc_drive_right.setPower(gamepad1.left_stick_y);
 
-        dc_drive_right.setPower(gamepad1.right_stick_y);
+        dc_drive_left.setPower(gamepad1.right_stick_y);
     }
 }
