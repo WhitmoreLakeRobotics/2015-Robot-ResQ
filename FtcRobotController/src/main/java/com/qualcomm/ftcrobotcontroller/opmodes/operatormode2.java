@@ -22,14 +22,14 @@ public class operatormode2 extends OpMode {
 
         dc_drive_right = hardwareMap.dcMotor.get("right_drive");
 
-        dc_drive_right.setDirection(DcMotor.Direction.REVERSE);
+        dc_drive_left.setDirection(DcMotor.Direction.REVERSE);
 
     }
 
     @Override
     public void loop() {
-        dc_drive_right.setPower(gamepad1.left_stick_y);
+        dc_drive_left.setPower(gamepad1.left_stick_y);
 
-        dc_drive_left.setPower(gamepad1.right_stick_y);
+        dc_drive_right.setPower(gamepad1.right_stick_y);
     }
 }

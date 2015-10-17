@@ -208,7 +208,7 @@ public class PushBotHardware2 extends OpMode
         //
         // This method is designed to be overridden.
         //
-
+        set_drive_power (gamepad1.left_stick_y, gamepad1.right_stick_y);
     } // loop
 
     //--------------------------------------------------------------------------
@@ -330,8 +330,7 @@ public class PushBotHardware2 extends OpMode
     void set_drive_power (double p_left_power, double p_right_power)
 
     {
-        if (v_motor_left_drive != null)
-        {
+        if (v_motor_left_drive != null) {
             v_motor_left_drive.setPower (p_left_power);
         }
         if (v_motor_right_drive != null)
