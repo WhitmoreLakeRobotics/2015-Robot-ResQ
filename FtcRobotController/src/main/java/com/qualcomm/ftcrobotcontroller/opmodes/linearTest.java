@@ -32,6 +32,7 @@ public class linearTest extends OpMode {
             }
 
         }
+        telemetry.addData("Ticks", dc_drive_right.getCurrentPosition());
 
     }
 }

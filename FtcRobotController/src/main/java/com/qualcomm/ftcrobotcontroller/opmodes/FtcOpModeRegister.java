@@ -61,7 +61,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register ("PushBotAuto", PushBotAuto.class);
     manager.register ("PushBotManual", PushBotManual.class);
     manager.register ("TvRobotRickAstley", operatormode2.class);
-    manager.register ("matt", PushBotHardware2.class);
+    manager.register ("comptonEncoders", PushBotHardware2.class);
     manager.register("linearEncoders", linearTest.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
