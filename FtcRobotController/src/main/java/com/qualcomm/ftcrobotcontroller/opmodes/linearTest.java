@@ -25,7 +25,7 @@ public class linearTest extends OpMode {
     }
     @Override
     public void loop() {
-        while (!reachedTicks) {
+        if (!reachedTicks) {
             dc_drive_right.setPower(0.25);
             if (Math.abs(dc_drive_right.getCurrentPosition())>= 1440){
                 reachedTicks= true;

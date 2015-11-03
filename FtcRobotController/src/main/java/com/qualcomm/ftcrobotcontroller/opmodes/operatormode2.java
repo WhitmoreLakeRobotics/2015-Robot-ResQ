@@ -31,12 +31,17 @@ public class operatormode2 extends OpMode {
         dc_drive_left.setPower(gamepad1.left_stick_y);
 
         dc_drive_right.setPower(gamepad1.right_stick_y);
+
+
         if (gamepad2.x) {
-            servo1.setPosition(1.0);
+            servo1.setPosition(0.0);
         }
+
+
+
         dc_drive_right.setPower(gamepad1.right_stick_y);
         if (gamepad2.a) {
-            servo1.setPosition(0.0);
+            servo1.setPosition(1.0);
 
         }
 
