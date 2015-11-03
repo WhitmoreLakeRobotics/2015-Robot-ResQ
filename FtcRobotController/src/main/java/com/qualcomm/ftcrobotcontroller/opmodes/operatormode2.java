@@ -13,7 +13,7 @@ public class operatormode2 extends OpMode {
     private DcMotor dc_drive_left;
     private Servo servo1;
     private DcMotor dc_drive_right;
-
+    private TwoMotorDrive leftWheel;
     @Override
     public void init() {
         dc_drive_controller = hardwareMap.dcMotorController.get("drive_controller");
@@ -23,6 +23,7 @@ public class operatormode2 extends OpMode {
         dc_drive_right = hardwareMap.dcMotor.get("right_drive");
 
         dc_drive_left.setDirection(DcMotor.Direction.REVERSE);
+        leftWheel = new TwoMotorDrive(dc_drive_left, dc_drive_right);
 
     }
 
@@ -44,6 +45,6 @@ public class operatormode2 extends OpMode {
             servo1.setPosition(1.0);
 
         }
-
+        leftWheel.setPower(gamepad2.left_stick_y);
     }
 }
