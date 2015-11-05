@@ -33,6 +33,8 @@ public class linearTest extends OpMode {
                 reachedTicks= true;
             }
 
+        }else {
+            dc_drive_right.setPower(0.0);
         }
         telemetry.addData("Ticks", dc_drive_right.getCurrentPosition());
         telemetry.addData("SensorOfLight", sensorOfLight.getLightDetected() );
