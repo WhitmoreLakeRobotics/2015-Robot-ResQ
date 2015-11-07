@@ -14,9 +14,12 @@ public class operatormode2 extends OpMode {
     private Servo servo1;
     private DcMotor dc_drive_right;
     private DcMotor dc_4link;
+    private TwoMotorDrive rightWheel;
     private TwoMotorDrive leftWheel;
     private int fourLinkUpper = 1920;
     private int fourLinkLower = 0;
+    private DcMotor dc_drive_right2;
+    private DcMotor dc_drive_left2;
     @Override
     public void init() {
         dc_drive_controller = hardwareMap.dcMotorController.get("drive_controller");
@@ -24,9 +27,12 @@ public class operatormode2 extends OpMode {
         dc_drive_left = hardwareMap.dcMotor.get("left_drive");
         dc_4link = hardwareMap.dcMotor.get("4link");
         dc_drive_right = hardwareMap.dcMotor.get("right_drive");
-
+        dc_drive_right2 = hardwareMap.dcMotor.get("right_drive2");
+        dc_drive_left2 = hardwareMap.dcMotor.get("left_drive2");
+        dc_drive_left2.setDirection(DcMotor.Direction.REVERSE);
         dc_drive_left.setDirection(DcMotor.Direction.REVERSE);
-        leftWheel = new TwoMotorDrive(dc_drive_left, dc_drive_right);
+        leftWheel = new TwoMotorDrive(dc_drive_left, dc_drive_left2);
+        rightWheel = new  TwoMotorDrive(dc_drive_right, dc_drive_right2);
         dc_4link.setChannelMode
                 ( DcMotorController.RunMode.RUN_USING_ENCODERS
                 );
@@ -50,5 +56,6 @@ public class operatormode2 extends OpMode {
 
         }
         leftWheel.setPower(gamepad1.left_stick_y);
+        rightWheel.setPower(gamepad1.right_stick_y);
     }
 }
