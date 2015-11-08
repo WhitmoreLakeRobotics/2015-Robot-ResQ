@@ -27,7 +27,7 @@ public class linearTest extends OpMode {
     }
     @Override
     public void loop() {
-        if (!reachedTicks) {
+       /* if (!reachedTicks) {
             dc_drive_right.setPower(0.25);
             if (Math.abs(dc_drive_right.getCurrentPosition())>= 1440){
                 reachedTicks= true;
@@ -36,7 +36,7 @@ public class linearTest extends OpMode {
         }else {
             dc_drive_right.setPower(0.0);
         }
-        telemetry.addData("Ticks", dc_drive_right.getCurrentPosition());
+        telemetry.addData("Ticks", dc_drive_right.getCurrentPosition());*/
         telemetry.addData("SensorOfLight", sensorOfLight.getLightDetected() );
     }
 }
