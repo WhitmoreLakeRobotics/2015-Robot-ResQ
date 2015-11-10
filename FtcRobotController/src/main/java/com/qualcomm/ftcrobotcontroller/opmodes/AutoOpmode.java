@@ -13,12 +13,19 @@ public class AutoOpmode extends OpMode {
     private DcMotor left2, left1, right1, right2;
     private LightSensor sensorOfLight;
     private TwoMotorDrive left, right;
-    private boolean haveline=false;
+    private boolean haveline=false, doneTurn = false;
     private double lightThreshold= .255;
     private int dist_to_line_right, dist_to_line_left;
     private double dist_to_line, angle_goal, distance_goal;
+
     private encoderDistance encoder_distance;
     private MafHelper mafHelper;
+
+    private int turn_dist, turn_goal_left, turn_goal_right;
+    private boolean turn_left = true;
+    private double turn_dist_d;
+
+
 
     @Override
     public void init(){
@@ -52,35 +59,36 @@ public class AutoOpmode extends OpMode {
                 dist_to_line_right = right1.getCurrentPosition();
                 dist_to_line = dist_to_line_left + dist_to_line_right / 2.0;
                 dist_to_line = encoder_distance.ticksToInches(dist_to_line);
+
+                angle_goal = mafHelper.getAngleToEnd(dist_to_line);
+                distance_goal = mafHelper.getDistanceToEnd(dist_to_line);
+
+                turn_dist_d = mafHelper.degreesToDistance(angle_goal);
+                turn_dist_d = encoder_distance.inchesToTicks(turn_dist_d);
+                turn_dist = (int) turn_dist_d;
+                if (turn_left){
+                    turn_goal_left = dist_to_line_left - turn_dist;
+                    turn_goal_right = dist_to_line_right + turn_dist;
+                }else {
+                    turn_goal_left = dist_to_line_left + turn_dist;
+                    turn_goal_right = dist_to_line_right - turn_dist;
+                }
             }
         }else {
+            //want to turn
 
-            left.setPower(0.0);
-            right.setPower(0.0);
+            if (!doneTurn) {
+                goToValue(turn_goal_left, left);
+                goToValue(turn_goal_right, right);
+                if (left.getPower() == 0 && right.getPower() ==0 ){
+                    doneTurn = true;
+                    //set new goal distance to end goal
+                }
+            }else{
+                //want to go till end
 
-
+            }
         }
-        //want to turn
-        int turn_dist, turn_goal_left, turn_goal_right;
-        boolean turn_left = true;
-        double turn_dist_d;
-        angle_goal = mafHelper.getAngleToEnd(dist_to_line);
-        turn_dist_d = mafHelper.degreesToDistance(angle_goal);
-        turn_dist_d = encoder_distance.inchesToTicks(turn_dist_d);
-        turn_dist = (int) turn_dist_d;
-        if (turn_left){
-            turn_goal_left = dist_to_line_left - turn_dist;
-            turn_goal_right = dist_to_line_right + turn_dist;
-        }else {
-            turn_goal_left = dist_to_line_left + turn_dist;
-            turn_goal_right = dist_to_line_right - turn_dist;
-        }
-        goToValue(turn_goal_left, left);
-        goToValue(turn_goal_right, right);
-
-        //want to go till end
-        distance_goal = mafHelper.getDistanceToEnd(dist_to_line);
-
     }
 
     private void goToValue(int tick, TwoMotorDrive motor) {
