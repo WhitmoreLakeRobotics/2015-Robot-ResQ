@@ -5,6 +5,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
  */
 public class MafHelper {
     private double end_goal_x, end_goal_y;
+    private double width_of_robutt = 15.75;
 
     public double getDistance(double x1, double y1, double x2, double y2 ){
         double out =0;
@@ -32,6 +33,12 @@ public class MafHelper {
         out = Math.toDegrees(out);
         out += 45;
         return out;
+    }
+
+    public double degreesToDistance ( double degrees) {
+        double out;
+        out = (width_of_robutt * Math.PI)/(degrees);
+        return  out;
     }
 
 }
