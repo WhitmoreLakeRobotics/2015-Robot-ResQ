@@ -50,7 +50,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     /*
      * register your op modes here.
      * The first parameter is the name of the op mode
-     * The second parameter is the op mode class property
+     * The second parameter is the op mode class property54
+     * ++++++++++++++++++++++++++
      *
      * If two or more op modes are registered with the same name, the app will display an error.
      */
