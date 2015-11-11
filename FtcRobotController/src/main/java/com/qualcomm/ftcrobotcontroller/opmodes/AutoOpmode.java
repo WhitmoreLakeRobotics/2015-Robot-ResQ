@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.LightSensor;
+import com.qualcomm.ftcrobotcontroller.opmodes.encoderDistance;
 
 /**
  * Created by techclub on 11/9/15.
@@ -17,7 +18,7 @@ public class AutoOpmode extends OpMode {
     private double lightThreshold= .255;
     private int dist_to_line_right, dist_to_line_left;
     private double dist_to_line, angle_goal, distance_goal;
-
+    private int distance_goal_ticks_right, distance_goal_ticks_left;
     private encoderDistance encoder_distance;
     private MafHelper mafHelper;
 
@@ -82,10 +83,11 @@ public class AutoOpmode extends OpMode {
                 goToValue(turn_goal_right, right);
                 if (left.getPower() == 0 && right.getPower() ==0 ){
                     doneTurn = true;
-                    //set new goal distance to end goal
-                }
+                    distance_goal_ticks_right=right1.getCurrentPosition() + (int)(encoder_distance.inchesToTicks(distance_goal));
+                    distance_goal_ticks_left=left1.getCurrentPosition() + (int)(encoder_distance.inchesToTicks(distance_goal));}
             }else{
-                //want to go till end
+                goToValue(distance_goal_ticks_left,left);
+                goToValue(dist_to_line_right,right);
 
             }
         }
