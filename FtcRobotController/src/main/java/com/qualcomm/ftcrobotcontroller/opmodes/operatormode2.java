@@ -10,7 +10,8 @@ import com.qualcomm.robotcore.hardware.ServoController;
  * Created by techclub on 9/12/15.
  */
 public class operatormode2 extends OpMode {
-    private DcMotorController dc_drive_controller;
+    private DcMotorController dc_left_controller;
+    private DcMotorController dc_right_controller;
     private ServoController servoController;
     private DcMotor dc_drive_left;
     private Servo bucket_servo;
@@ -35,30 +36,31 @@ public class operatormode2 extends OpMode {
 
     @Override
     public void init() {
-        dc_drive_controller = hardwareMap.dcMotorController.get("drive_controller");
-        servoController = hardwareMap.servoController.get("servoController");
+        dc_left_controller = hardwareMap.dcMotorController.get("left");
+        dc_right_controller = hardwareMap.dcMotorController.get("right");
+        /*servoController = hardwareMap.servoController.get("servoController");
         bucket_servo = hardwareMap.servo.get("bucket_servo");
         left_slide = hardwareMap.servo.get("left_slide");
         right_slide = hardwareMap.servo.get("right_slide");
-        dc_drive_left = hardwareMap.dcMotor.get("left_drive");
-        dc_4link = hardwareMap.dcMotor.get("4link");
+       */ dc_drive_left = hardwareMap.dcMotor.get("left_drive");
+       // dc_4link = hardwareMap.dcMotor.get("4link");
         dc_drive_right = hardwareMap.dcMotor.get("right_drive");
         dc_drive_right2 = hardwareMap.dcMotor.get("right_drive2");
         dc_drive_left2 = hardwareMap.dcMotor.get("left_drive2");
-        dc_sweeper = hardwareMap.dcMotor.get("sweeper");
+        //dc_sweeper = hardwareMap.dcMotor.get("sweeper");
         dc_drive_left2.setDirection(DcMotor.Direction.REVERSE);
         dc_drive_left.setDirection(DcMotor.Direction.REVERSE);
         leftWheel = new TwoMotorDrive(dc_drive_left, dc_drive_left2);
         rightWheel = new  TwoMotorDrive(dc_drive_right, dc_drive_right2);
-        dc_4link.setChannelMode
+       /* dc_4link.setChannelMode
                 ( DcMotorController.RunMode.RUN_USING_ENCODERS
-                );
+                );*/
 
     }
 
     @Override
     public void loop() {
-        if (gamepad2.a && bucket_servo.getPosition()!= bucket_in) { //sets bucket to normal with a button
+        /*if (gamepad2.a && bucket_servo.getPosition()!= bucket_in) { //sets bucket to normal with a button
             bucket_servo.setPosition(bucket_in);
         }
         if (gamepad2.a && bucket_servo.getPosition()!=bucket_left_out) { //sets bucket to dump left with a button
@@ -96,7 +98,7 @@ public class operatormode2 extends OpMode {
             dc_4link.setPower(gamepad2.right_stick_y);
 
         }
-        dc_sweeper.setPower(gamepad2.left_stick_y);
+        dc_sweeper.setPower(gamepad2.left_stick_y);*/
         leftWheel.setPower(gamepad1.left_stick_y);
         rightWheel.setPower(gamepad1.right_stick_y);
     }

@@ -9,7 +9,7 @@ import com.qualcomm.ftcrobotcontroller.opmodes.encoderDistance;
 /**
  * Created by techclub on 11/9/15.
  */
-public class AutoOpmode extends OpMode {
+public class AutoOpmode2 extends OpMode {
 
     private DcMotor left2, left1, right1, right2;
     private LightSensor sensorOfLight;
