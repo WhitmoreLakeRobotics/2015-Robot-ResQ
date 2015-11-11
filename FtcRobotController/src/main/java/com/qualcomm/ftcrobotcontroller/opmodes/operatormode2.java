@@ -25,6 +25,13 @@ public class operatormode2 extends OpMode {
     private DcMotor dc_drive_right2;
     private DcMotor dc_drive_left2;
     private DcMotor dc_sweeper;
+    private double bucket_left_out = 0.25;
+    private double bucket_in = 0.5;
+    private double bucket_right_out = 0.75;
+    private double left_slide_in = 0.0;
+    private double left_slide_out = 0.3;
+    private double right_slide_in = 0.0;
+    private double right_slide_out = 0.3;
 
     @Override
     public void init() {
@@ -51,35 +58,35 @@ public class operatormode2 extends OpMode {
 
     @Override
     public void loop() {
-        if (gamepad2.a && bucket_servo.getPosition()!=0.5) { //sets bucket to normal with a button
-            bucket_servo.setPosition(0.5);
+        if (gamepad2.a && bucket_servo.getPosition()!= bucket_in) { //sets bucket to normal with a button
+            bucket_servo.setPosition(bucket_in);
         }
-        if (gamepad2.a && bucket_servo.getPosition()!=0.25) { //sets bucket to dump left with a button
-            bucket_servo.setPosition(0.25);
+        if (gamepad2.a && bucket_servo.getPosition()!=bucket_left_out) { //sets bucket to dump left with a button
+            bucket_servo.setPosition(bucket_left_out);
 
         }
 
-        if (gamepad2.y && bucket_servo.getPosition()!=0.5) { //sets bucket to normal with y button
-            bucket_servo.setPosition(0.5);
+        if (gamepad2.y && bucket_servo.getPosition()!=bucket_in) { //sets bucket to normal with y button
+            bucket_servo.setPosition(bucket_in);
         }
-        if (gamepad2.y && bucket_servo.getPosition()!=0.75) { //sets bucket to dump right with y button
-            bucket_servo.setPosition(0.75);
+        if (gamepad2.y && bucket_servo.getPosition()!=bucket_right_out) { //sets bucket to dump right with y button
+            bucket_servo.setPosition(bucket_right_out);
 
         }
 
-        if (gamepad2.x && left_slide.getPosition()!=0.0) { //sets left slide to in with x button
-            left_slide.setPosition(0.0);
+        if (gamepad2.x && left_slide.getPosition()!=left_slide_in) { //sets left slide to in with x button
+            left_slide.setPosition(left_slide_in);
         }
-        if (gamepad2.x && left_slide.getPosition()!=0.3) { //sets left slide to out with x button
-            left_slide.setPosition(0.3);
+        if (gamepad2.x && left_slide.getPosition()!=left_slide_out) { //sets left slide to out with x button
+            left_slide.setPosition(left_slide_out);
 
         }
 
-        if (gamepad2.b && right_slide.getPosition()!=0.0) { //sets right slide to in with b button
-            right_slide.setPosition(0.0);
+        if (gamepad2.b && right_slide.getPosition()!=right_slide_in) { //sets right slide to in with b button
+            right_slide.setPosition(right_slide_in);
         }
-        if (gamepad2.b && right_slide.getPosition()!=0.3) { //sets right slide to out with b button
-            right_slide.setPosition(0.3);
+        if (gamepad2.b && right_slide.getPosition()!=right_slide_out) { //sets right slide to out with b button
+            right_slide.setPosition(right_slide_out);
 
         }
 
