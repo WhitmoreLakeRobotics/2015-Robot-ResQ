@@ -20,8 +20,8 @@ public class AutoOpmode2 extends OpMode {
     private static double distance_to_go = 72;
     private static double degrees_to_turn = 90;
 
-    private encoderDistance encoder_distance;
-    private MafHelper mafHelper;
+    private encoderDistance encoder_distance = new encoderDistance();
+    private MafHelper mafHelper = new MafHelper();
     private DcMotorController left, right;
 
     private int turn_dist, turn_goal_left, turn_goal_right;
@@ -91,31 +91,38 @@ public class AutoOpmode2 extends OpMode {
     private void goToValue(int tick, TwoMotorDrive motor) {
         //give a motor and a goal tick value
         //goes to tick value
-        int current_dist = motor.getCurrentPosition();
-        int slowdown_breakpoint = 1440;
-        int stop_breakpoint = 144;
-        double fullSpeed = 1;
-        double slowSpeed = .25;
-        if ( Math.abs(tick - current_dist) > slowdown_breakpoint ) {
-            //if we are more than a full rotation from the goal
-            //go full speed
-            if (tick > current_dist){
-                motor.setPower(fullSpeed);
-            }else {
-                motor.setPower(-fullSpeed);
-            }
-        }else {
-            //if we are more than a 10th of a rotiaion from goal
-            if (Math.abs(tick - current_dist) > stop_breakpoint){
-                if (tick > current_dist){
-                    motor.setPower(slowSpeed);
-                }else {
-                    motor.setPower(-slowSpeed);
-                }
-            }else{
-                motor.setPower(0.0);
-            }
+        try {
 
+
+            int current_dist = motor.getCurrentPosition();
+            int slowdown_breakpoint = 1440;
+            int stop_breakpoint = 144;
+            double fullSpeed = 1;
+            double slowSpeed = .25;
+            if (Math.abs(tick - current_dist) > slowdown_breakpoint) {
+                //if we are more than a full rotation from the goal
+                //go full speed
+                if (tick > current_dist) {
+                    motor.setPower(fullSpeed);
+                } else {
+                    motor.setPower(-fullSpeed);
+                }
+            } else {
+                //if we are more than a 10th of a rotiaion from goal
+                if (Math.abs(tick - current_dist) > stop_breakpoint) {
+                    if (tick > current_dist) {
+                        motor.setPower(slowSpeed);
+                    } else {
+                        motor.setPower(-slowSpeed);
+                    }
+                } else {
+                    motor.setPower(0.0);
+                }
+
+            }
+        }catch (Exception x){
+            System.err.println("Henry's code was the one that broke" + x.getMessage());
         }
     }
+
 }

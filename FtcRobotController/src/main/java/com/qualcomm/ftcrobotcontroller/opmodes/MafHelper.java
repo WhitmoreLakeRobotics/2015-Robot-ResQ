@@ -4,7 +4,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
  * Created by techclub on 11/7/15.
  */
 public class MafHelper {
-    private double end_goal_x, end_goal_y;
+    private double end_goal_x = 42, end_goal_y = 31.4149;
     private double width_of_robutt = 15.75;
 
     public double getDistance(double x1, double y1, double x2, double y2 ){
