@@ -12,18 +12,17 @@ import com.qualcomm.ftcrobotcontroller.opmodes.encoderDistance;
 public class AutoOpmode2 extends OpMode {
 
     private DcMotor left2, left1, right1, right2;
-    private LightSensor sensorOfLight;
+    //private LightSensor sensorOfLight;
     private TwoMotorDrive leftW, rightW;
-    private boolean haveline=false, doneTurn = false;
-    private double lightThreshold= .255;
-    private int dist_to_line_right, dist_to_line_left;
-    private double dist_to_line, angle_goal, distance_goal;
-    private int distance_goal_ticks_right, distance_goal_ticks_left;
+
+    private boolean going_forward = true, need_to_turn = true;
+    private boolean turn_left = true;
+
     private encoderDistance encoder_distance;
     private MafHelper mafHelper;
     private DcMotorController left, right;
+
     private int turn_dist, turn_goal_left, turn_goal_right;
-    private boolean turn_left = true;
     private double turn_dist_d;
 
 
@@ -39,59 +38,36 @@ public class AutoOpmode2 extends OpMode {
         left1.setDirection(DcMotor.Direction.REVERSE);
         left2.setDirection(DcMotor.Direction.REVERSE);
 
-
         left1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         right1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 
         leftW = new TwoMotorDrive(left1, left2);
         rightW = new TwoMotorDrive(right1, right2);
-        sensorOfLight = hardwareMap.lightSensor.get("LEDlightLED");
 
     }
 
     @Override
     public void loop(){
-
-        if (!haveline){
-            leftW.setPower(0.5);
-            rightW.setPower(0.5); //goes untill line has be reatched
-            if (sensorOfLight.getLightDetected()>lightThreshold ){
-                haveline = true;
-                dist_to_line_left = left1.getCurrentPosition();
-                dist_to_line_right = right1.getCurrentPosition();
-                dist_to_line = dist_to_line_left + dist_to_line_right / 2.0;
-                dist_to_line = encoder_distance.ticksToInches(dist_to_line);
-
-                angle_goal = mafHelper.getAngleToEnd(dist_to_line);
-                distance_goal = mafHelper.getDistanceToEnd(dist_to_line);
-
-                turn_dist_d = mafHelper.degreesToDistance(angle_goal);
-                turn_dist_d = encoder_distance.inchesToTicks(turn_dist_d);
-                turn_dist = (int) turn_dist_d;
-                if (turn_left){
-                    turn_goal_left = dist_to_line_left - turn_dist;
-                    turn_goal_right = dist_to_line_right + turn_dist;
-                }else {
-                    turn_goal_left = dist_to_line_left + turn_dist;
-                    turn_goal_right = dist_to_line_right - turn_dist;
-                }
+        if (going_forward){
+            //we are going to our goal
+            if (leftW.getPower() == 0.0 && rightW.getPower() == 0.0){
+                //we are done going forward
             }
+
         }else {
-            //want to turn
+            if (need_to_turn){
+                // turn to goal
+                if (leftW.getPower() == 0.0 && rightW.getPower() == 0.0){
+                    //we are done turning
+                }
 
-            if (!doneTurn) {
-                goToValue(turn_goal_left, leftW);
-                goToValue(turn_goal_right, rightW);
-                if (leftW.getPower() == 0 && rightW.getPower() ==0 ){
-                    doneTurn = true;
-                    distance_goal_ticks_right=right1.getCurrentPosition() + (int)(encoder_distance.inchesToTicks(distance_goal));
-                    distance_goal_ticks_left=left1.getCurrentPosition() + (int)(encoder_distance.inchesToTicks(distance_goal));}
-            }else{
-                goToValue(distance_goal_ticks_left,leftW);
-                goToValue(dist_to_line_right,rightW);
-
+            }else {
+                //we are done
+                leftW.setPower(0.0);
+                rightW.setPower(0.0);
             }
         }
+
     }
 
     private void goToValue(int tick, TwoMotorDrive motor) {
