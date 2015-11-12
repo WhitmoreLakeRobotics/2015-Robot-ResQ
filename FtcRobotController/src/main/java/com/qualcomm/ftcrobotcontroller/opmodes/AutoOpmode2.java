@@ -16,14 +16,18 @@ public class AutoOpmode2 extends OpMode {
     private TwoMotorDrive leftW, rightW;
 
     private boolean going_forward = true, need_to_turn = true;
-    private boolean turn_left = true;
+    private static boolean turn_left = true;
+    private static double distance_to_go = 72;
+    private static double degrees_to_turn = 90;
 
     private encoderDistance encoder_distance;
     private MafHelper mafHelper;
     private DcMotorController left, right;
 
     private int turn_dist, turn_goal_left, turn_goal_right;
-    private double turn_dist_d;
+    private double turn_dist_d = mafHelper.degreesToDistance(degrees_to_turn);
+
+    private int dist_goal_tick = (int) encoder_distance.inchesToTicks(distance_to_go);
 
 
 
@@ -50,15 +54,29 @@ public class AutoOpmode2 extends OpMode {
     public void loop(){
         if (going_forward){
             //we are going to our goal
+            goToValue(dist_goal_tick,leftW);
+            goToValue(dist_goal_tick,rightW);
             if (leftW.getPower() == 0.0 && rightW.getPower() == 0.0){
                 //we are done going forward
+                going_forward = false;
+                turn_dist = (int) encoder_distance.inchesToTicks(turn_dist_d);
+                if (turn_left){
+                    turn_goal_left = leftW.getCurrentPosition() - turn_dist;
+                    turn_goal_right = rightW.getCurrentPosition() + turn_dist;
+                }else{
+                    turn_goal_left = leftW.getCurrentPosition() + turn_dist;
+                    turn_goal_right = rightW.getCurrentPosition() - turn_dist;
+                }
             }
 
         }else {
             if (need_to_turn){
                 // turn to goal
+                goToValue(turn_goal_left,leftW);
+                goToValue(turn_goal_right,rightW);
                 if (leftW.getPower() == 0.0 && rightW.getPower() == 0.0){
                     //we are done turning
+                    need_to_turn = false;
                 }
 
             }else {
