@@ -17,6 +17,7 @@ public class operatormode2 extends OpMode {
     private Servo bucket_servo;
     private Servo left_slide;
     private Servo right_slide;
+    private Servo test;
     private DcMotor dc_drive_right;
     private DcMotor dc_4link;
     private TwoMotorDrive rightWheel;
@@ -38,6 +39,7 @@ public class operatormode2 extends OpMode {
     public void init() {
         dc_left_controller = hardwareMap.dcMotorController.get("left");
         dc_right_controller = hardwareMap.dcMotorController.get("right");
+        test = hardwareMap.servo.get("test")
         /*servoController = hardwareMap.servoController.get("servoController");
         bucket_servo = hardwareMap.servo.get("bucket_servo");
         left_slide = hardwareMap.servo.get("left_slide");
