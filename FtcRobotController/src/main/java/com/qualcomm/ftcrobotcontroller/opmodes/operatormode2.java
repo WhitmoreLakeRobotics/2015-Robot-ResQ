@@ -47,7 +47,7 @@ public class operatormode2 extends OpMode {
         dc_drive_right = hardwareMap.dcMotor.get("right_drive");
         dc_drive_right2 = hardwareMap.dcMotor.get("right_drive2");
         dc_drive_left2 = hardwareMap.dcMotor.get("left_drive2");
-        //dc_sweeper = hardwareMap.dcMotor.get("sweeper");
+        dc_sweeper = hardwareMap.dcMotor.get("sweeper");
         dc_drive_left2.setDirection(DcMotor.Direction.REVERSE);
         dc_drive_left.setDirection(DcMotor.Direction.REVERSE);
         leftWheel = new TwoMotorDrive(dc_drive_left, dc_drive_left2);
@@ -97,8 +97,8 @@ public class operatormode2 extends OpMode {
                 (dc_4link.getCurrentPosition()< fourLinkUpper && dc_4link.getCurrentPosition()>fourLinkLower)){ //
             dc_4link.setPower(gamepad2.right_stick_y);
 
-        }
-        dc_sweeper.setPower(gamepad2.left_stick_y);*/
+        }*/
+        dc_sweeper.setPower(gamepad2.left_stick_y);
         leftWheel.setPower(gamepad1.left_stick_y);
         rightWheel.setPower(gamepad1.right_stick_y);
     }

@@ -94,6 +94,10 @@ public class TwoMotorDrive {
     }
 
     public void test (int ticks) {
+
+        if (false){
+
+        }
         motor1.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
         motor1.setTargetPosition(ticks);
         motor1.setPower(1.0);

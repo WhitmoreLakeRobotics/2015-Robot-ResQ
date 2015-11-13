@@ -82,7 +82,6 @@ public class AutoOpmode2 extends OpMode {
                 rightW.test(turn_goal_right);
                 leftW.setPower(1.0);
                 rightW.setPower(1.0);
-
                 if (leftW.getPower() == 0.0 && rightW.getPower() == 0.0){
                     //we are done turning
                     need_to_turn = false;
