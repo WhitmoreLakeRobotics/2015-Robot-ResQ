@@ -31,9 +31,9 @@ public class AutoOpmode extends OpMode {
     @Override
     public void init(){
         left2 = hardwareMap.dcMotor.get("left_drive2");
-        left1 = hardwareMap.dcMotor.get("left_drive1");
+        left1 = hardwareMap.dcMotor.get("left_drive");
         right2 = hardwareMap.dcMotor.get("right_drive2");
-        right1 = hardwareMap.dcMotor.get("right_drive1");
+        right1 = hardwareMap.dcMotor.get("right_drive");
         right = hardwareMap.dcMotorController.get("right");
         left = hardwareMap.dcMotorController.get("left");
         left1.setDirection(DcMotor.Direction.REVERSE);

@@ -66,6 +66,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("linearEncoders", linearTest.class);
     manager.register("AutoOpmode", AutoOpmode.class);
     manager.register("AutoMaticOPeratorMode", AutoOpmode2.class);
+    manager.register("test", Test.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */

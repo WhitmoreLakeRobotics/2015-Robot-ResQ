@@ -34,16 +34,16 @@ public class AutoOpmode2 extends OpMode {
     @Override
     public void init(){
         left2 = hardwareMap.dcMotor.get("left_drive2");
-        left1 = hardwareMap.dcMotor.get("left_drive1");
+        left1 = hardwareMap.dcMotor.get("left_drive");
         right2 = hardwareMap.dcMotor.get("right_drive2");
-        right1 = hardwareMap.dcMotor.get("right_drive1");
+        right1 = hardwareMap.dcMotor.get("right_drive");
         right = hardwareMap.dcMotorController.get("right");
         left = hardwareMap.dcMotorController.get("left");
         left1.setDirection(DcMotor.Direction.REVERSE);
         left2.setDirection(DcMotor.Direction.REVERSE);
 
-        left1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        right1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        //left1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        //right1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 
         leftW = new TwoMotorDrive(left1, left2);
         rightW = new TwoMotorDrive(right1, right2);
@@ -54,26 +54,35 @@ public class AutoOpmode2 extends OpMode {
     public void loop(){
         if (going_forward){
             //we are going to our goal
-            goToValue(dist_goal_tick,leftW);
-            goToValue(dist_goal_tick,rightW);
+            //goToValue(dist_goal_tick,leftW);
+            leftW.test(dist_goal_tick);
+            //goToValue(dist_goal_tick,rightW);
+            rightW.test(dist_goal_tick);
+            leftW.setPower(1.0);
+            rightW.setPower(1.0);
             if (leftW.getPower() == 0.0 && rightW.getPower() == 0.0){
                 //we are done going forward
                 going_forward = false;
                 turn_dist = (int) encoder_distance.inchesToTicks(turn_dist_d);
                 if (turn_left){
-                    turn_goal_left = leftW.getCurrentPosition() - turn_dist;
-                    turn_goal_right = rightW.getCurrentPosition() + turn_dist;
+                    turn_goal_left = dist_goal_tick - turn_dist;
+                    turn_goal_right = dist_goal_tick + turn_dist;
                 }else{
-                    turn_goal_left = leftW.getCurrentPosition() + turn_dist;
-                    turn_goal_right = rightW.getCurrentPosition() - turn_dist;
+                    turn_goal_left = dist_goal_tick + turn_dist;
+                    turn_goal_right = dist_goal_tick - turn_dist;
                 }
             }
 
         }else {
             if (need_to_turn){
                 // turn to goal
-                goToValue(turn_goal_left,leftW);
-                goToValue(turn_goal_right,rightW);
+                //goToValue(turn_goal_left,leftW);
+                leftW.test(turn_goal_left);
+                //goToValue(turn_goal_right,rightW);
+                rightW.test(turn_goal_right);
+                leftW.setPower(1.0);
+                rightW.setPower(1.0);
+
                 if (leftW.getPower() == 0.0 && rightW.getPower() == 0.0){
                     //we are done turning
                     need_to_turn = false;
@@ -88,7 +97,7 @@ public class AutoOpmode2 extends OpMode {
 
     }
 
-    private void goToValue(int tick, TwoMotorDrive motor) {
+  /*  private void goToValue(int tick, TwoMotorDrive motor) {
         //give a motor and a goal tick value
         //goes to tick value
         try {
@@ -124,5 +133,6 @@ public class AutoOpmode2 extends OpMode {
             System.err.println("Henry's code was the one that broke" + x.getMessage());
         }
     }
-
+*/
 }
+

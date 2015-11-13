@@ -93,4 +93,13 @@ public class TwoMotorDrive {
         return this.motor1.getChannelMode();
     }
 
+    public void test (int ticks) {
+        motor1.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        motor1.setTargetPosition(ticks);
+        motor1.setPower(1.0);
+
+    }
+
 }
+
+
