@@ -43,7 +43,7 @@ public class operatormode2 extends OpMode {
     public void init() {
         dc_left_controller = hardwareMap.dcMotorController.get("left");
         dc_right_controller = hardwareMap.dcMotorController.get("right");
-        //test = hardwareMap.servo.get("test");
+        test = hardwareMap.servo.get("test");
 
         servoDump = hardwareMap.servo.get("Dump");
         servoThrow = hardwareMap.servo.get("throw");
@@ -64,11 +64,24 @@ public class operatormode2 extends OpMode {
         dc_4link.setChannelMode
                 ( DcMotorController.RunMode.RUN_USING_ENCODERS
                 );
-        servoDump.setPosition(0.5 );
+        servoDump.setPosition(0.5);
     }
 
     @Override
     public void loop() {
+
+        if(gamepad1.y){
+            test.setPosition(0.0 );
+        }
+        if(gamepad1.x){
+            test.setPosition(0.33 );
+        }
+        if(gamepad1.b){
+            test.setPosition(0.66 );
+        }
+        if (gamepad1.a){
+            test.setPosition(1.0);
+        }
 
         //testing servos 1 by 1
         //test_pos = test.getPosition();
