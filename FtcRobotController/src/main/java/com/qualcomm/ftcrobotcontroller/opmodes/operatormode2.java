@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
+import com.qualcomm.robotcore.util.Range;
 
 /**
  * Created by techclub on 9/12/15.
@@ -35,11 +36,14 @@ public class operatormode2 extends OpMode {
     private double right_slide_in = 0.0;
     private double right_slide_out = 0.3;
 
+    private double test_pos;
+    private double step_size = 0.05;
+
     @Override
     public void init() {
         dc_left_controller = hardwareMap.dcMotorController.get("left");
         dc_right_controller = hardwareMap.dcMotorController.get("right");
-        test = hardwareMap.servo.get("test")
+        test = hardwareMap.servo.get("test");
         /*servoController = hardwareMap.servoController.get("servoController");
         bucket_servo = hardwareMap.servo.get("bucket_servo");
         left_slide = hardwareMap.servo.get("left_slide");
@@ -62,6 +66,23 @@ public class operatormode2 extends OpMode {
 
     @Override
     public void loop() {
+
+        //testing servos 1 by 1
+        //test_pos = test.getPosition();
+       // telemetry.addData("test position:",test_pos );
+        if(gamepad1.x){
+            test.setPosition(0.0 );
+        }
+        if(gamepad1.y){
+            test.setPosition(0.33 );
+        }
+        if(gamepad1.a){
+            test.setPosition(0.66 );
+        }
+        if(gamepad1.b){
+            test.setPosition(1.0 );
+        }
+
         /*if (gamepad2.a && bucket_servo.getPosition()!= bucket_in) { //sets bucket to normal with a button
             bucket_servo.setPosition(bucket_in);
         }
