@@ -27,6 +27,9 @@ public class operatormode2 extends OpMode {
     private int fourLinkLower = 0;
     private DcMotor dc_drive_right2;
     private DcMotor dc_drive_left2;
+
+    private double test_pos;
+    private double step_size = 0.05;
     private DcMotor dc_sweeper;
     private double bucket_left_out = 0.25;
     private double bucket_in = 0.5;
@@ -35,15 +38,12 @@ public class operatormode2 extends OpMode {
     private double left_slide_out = 0.3;
     private double right_slide_in = 0.0;
     private double right_slide_out = 0.3;
-
-    private double test_pos;
-    private double step_size = 0.05;
-
+    private double fourlink_pos;
     @Override
     public void init() {
         dc_left_controller = hardwareMap.dcMotorController.get("left");
         dc_right_controller = hardwareMap.dcMotorController.get("right");
-        test = hardwareMap.servo.get("test");
+        //test = hardwareMap.servo.get("test");
 
         servoDump = hardwareMap.servo.get("Dump");
         servoThrow = hardwareMap.servo.get("throw");
@@ -52,7 +52,7 @@ public class operatormode2 extends OpMode {
         left_slide = hardwareMap.servo.get("left_slide");
         right_slide = hardwareMap.servo.get("right_slide");
        */ dc_drive_left = hardwareMap.dcMotor.get("left_drive");
-       // dc_4link = hardwareMap.dcMotor.get("4link");
+        dc_4link = hardwareMap.dcMotor.get("4link");
         dc_drive_right = hardwareMap.dcMotor.get("right_drive");
         dc_drive_right2 = hardwareMap.dcMotor.get("right_drive2");
         dc_drive_left2 = hardwareMap.dcMotor.get("left_drive2");
@@ -61,9 +61,9 @@ public class operatormode2 extends OpMode {
         dc_drive_left.setDirection(DcMotor.Direction.REVERSE);
         leftWheel = new TwoMotorDrive(dc_drive_left, dc_drive_left2);
         rightWheel = new  TwoMotorDrive(dc_drive_right, dc_drive_right2);
-       /* dc_4link.setChannelMode
+        dc_4link.setChannelMode
                 ( DcMotorController.RunMode.RUN_USING_ENCODERS
-                );*/
+                );
 
     }
 
@@ -73,10 +73,10 @@ public class operatormode2 extends OpMode {
         //testing servos 1 by 1
         //test_pos = test.getPosition();
        // telemetry.addData("test position:",test_pos );
-        if(gamepad2.x){
+        if(gamepad2.y){
             servoDump.setPosition(0.5 );
         }
-        if(gamepad2.y){
+        if(gamepad2.x){
             servoDump.setPosition(0.33 );
         }
         if(gamepad2.b){
@@ -88,5 +88,27 @@ public class operatormode2 extends OpMode {
         dc_sweeper.setPower(gamepad2.left_stick_y);
         leftWheel.setPower(gamepad1.left_stick_y);
         rightWheel.setPower(gamepad1.right_stick_y);
+
+        /*
+        if (gamepad2.right_stick_y!=0.0){
+             fourlink_pos = dc_4link.getCurrentPosition();
+            telemetry.addData("encoder Ticks",fourlink_pos);
+            if (gamepad2.right_stick_y > 0.0){
+                if (fourlink_pos < fourLinkUpper){
+                   dc_4link.setPower(gamepad2.right_stick_y);
+                }else{
+                    dc_4link.setPower(0.0);
+                }
+            }else{
+                if (fourlink_pos > fourLinkLower){
+                    dc_4link.setPower(gamepad2.right_stick_y);
+                }else{
+                    dc_4link.setPower(0.0);
+                }
+            }
+        }else dc_4link.setPower(0.0);
+        */
+        dc_4link.setPower(gamepad2.right_stick_y);
+
     }
 }
