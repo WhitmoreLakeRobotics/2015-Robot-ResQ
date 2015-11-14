@@ -38,7 +38,7 @@ public class operatormode2 extends OpMode {
     private double left_slide_out = 0.3;
     private double right_slide_in = 0.0;
     private double right_slide_out = 0.3;
-    private double fourlink_pos;
+    private int fourlink_pos;
     @Override
     public void init() {
         dc_left_controller = hardwareMap.dcMotorController.get("left");
@@ -64,7 +64,7 @@ public class operatormode2 extends OpMode {
         dc_4link.setChannelMode
                 ( DcMotorController.RunMode.RUN_USING_ENCODERS
                 );
-
+        servoDump.setPosition(0.5 );
     }
 
     @Override
@@ -89,25 +89,25 @@ public class operatormode2 extends OpMode {
         leftWheel.setPower(gamepad1.left_stick_y);
         rightWheel.setPower(gamepad1.right_stick_y);
 
+        fourlink_pos = dc_4link.getCurrentPosition();
+        telemetry.addData("encoder Ticks",fourlink_pos);
+
         /*
-        if (gamepad2.right_stick_y!=0.0){
-             fourlink_pos = dc_4link.getCurrentPosition();
-            telemetry.addData("encoder Ticks",fourlink_pos);
-            if (gamepad2.right_stick_y > 0.0){
-                if (fourlink_pos < fourLinkUpper){
-                   dc_4link.setPower(gamepad2.right_stick_y);
-                }else{
-                    dc_4link.setPower(0.0);
-                }
+        if (gamepad2.right_stick_y > 0.0){
+            if (fourlink_pos < fourLinkUpper){
+               dc_4link.setPower(gamepad2.right_stick_y);
             }else{
-                if (fourlink_pos > fourLinkLower){
-                    dc_4link.setPower(gamepad2.right_stick_y);
-                }else{
-                    dc_4link.setPower(0.0);
-                }
+                dc_4link.setPower(0.0);
             }
-        }else dc_4link.setPower(0.0);
+        }else{
+            if (fourlink_pos > fourLinkLower){
+                dc_4link.setPower(gamepad2.right_stick_y);
+            }else{
+                dc_4link.setPower(0.0);
+            }
+        }
         */
+
         dc_4link.setPower(gamepad2.right_stick_y);
 
     }
