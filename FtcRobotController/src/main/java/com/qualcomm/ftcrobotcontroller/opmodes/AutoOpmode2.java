@@ -54,10 +54,11 @@ public class AutoOpmode2 extends OpMode {
     public void loop(){
         if (going_forward){
 
-          if ( leftW.test(dist_goal_tick) &&
-            rightW.test(dist_goal_tick)){
+          if ( leftW.areWeThereYet(dist_goal_tick) &&
+            rightW.areWeThereYet(dist_goal_tick))
+              fwd1 = true;
 
-
+              if (fwd1){
                 //we are done going forward
                 going_forward = false;
                 turn_dist = (int) encoder_distance.inchesToTicks(turn_dist_d);
@@ -74,9 +75,9 @@ public class AutoOpmode2 extends OpMode {
             if (need_to_turn){
                 // turn to goal
                 //goToValue(turn_goal_left,leftW);
-                leftW.test(turn_goal_left);
+                leftW.areWeThereYet(turn_goal_left);
                 //goToValue(turn_goal_right,rightW);
-                rightW.test(turn_goal_right);
+                rightW.areWeThereYet(turn_goal_right);
 
                 if (leftW.getPower() == 0.0 && rightW.getPower() == 0.0){
                     //we are done turning
