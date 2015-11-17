@@ -19,7 +19,7 @@ public class AutoOpmode2 extends OpMode {
     private static boolean turn_left = true;
     private static double distance_to_go = 72;
     private static double degrees_to_turn = 90;
-
+    private boolean fwd1 = false;
     private encoderDistance encoder_distance = new encoderDistance();
     private MafHelper mafHelper = new MafHelper();
     private DcMotorController left, right;
@@ -53,14 +53,11 @@ public class AutoOpmode2 extends OpMode {
     @Override
     public void loop(){
         if (going_forward){
-            //we are going to our goal
-            //goToValue(dist_goal_tick,leftW);
-            leftW.test(dist_goal_tick);
-            //goToValue(dist_goal_tick,rightW);
-            rightW.test(dist_goal_tick);
-            leftW.setPower(1.0);
-            rightW.setPower(1.0);
-            if (leftW.getPower() == 0.0 && rightW.getPower() == 0.0){
+
+          if ( leftW.test(dist_goal_tick) &&
+            rightW.test(dist_goal_tick)){
+
+
                 //we are done going forward
                 going_forward = false;
                 turn_dist = (int) encoder_distance.inchesToTicks(turn_dist_d);
@@ -80,8 +77,7 @@ public class AutoOpmode2 extends OpMode {
                 leftW.test(turn_goal_left);
                 //goToValue(turn_goal_right,rightW);
                 rightW.test(turn_goal_right);
-                leftW.setPower(1.0);
-                rightW.setPower(1.0);
+
                 if (leftW.getPower() == 0.0 && rightW.getPower() == 0.0){
                     //we are done turning
                     need_to_turn = false;
@@ -95,43 +91,5 @@ public class AutoOpmode2 extends OpMode {
         }
 
     }
-
-  /*  private void goToValue(int tick, TwoMotorDrive motor) {
-        //give a motor and a goal tick value
-        //goes to tick value
-        try {
-
-
-            int current_dist = motor.getCurrentPosition();
-            int slowdown_breakpoint = 1440;
-            int stop_breakpoint = 144;
-            double fullSpeed = 1;
-            double slowSpeed = .25;
-            if (Math.abs(tick - current_dist) > slowdown_breakpoint) {
-                //if we are more than a full rotation from the goal
-                //go full speed
-                if (tick > current_dist) {
-                    motor.setPower(fullSpeed);
-                } else {
-                    motor.setPower(-fullSpeed);
-                }
-            } else {
-                //if we are more than a 10th of a rotiaion from goal
-                if (Math.abs(tick - current_dist) > stop_breakpoint) {
-                    if (tick > current_dist) {
-                        motor.setPower(slowSpeed);
-                    } else {
-                        motor.setPower(-slowSpeed);
-                    }
-                } else {
-                    motor.setPower(0.0);
-                }
-
-            }
-        }catch (Exception x){
-            System.err.println("Henry's code was the one that broke" + x.getMessage());
-        }
-    }
-*/
 }
 
