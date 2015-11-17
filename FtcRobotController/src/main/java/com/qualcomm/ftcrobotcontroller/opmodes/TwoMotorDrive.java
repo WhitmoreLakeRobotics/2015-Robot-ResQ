@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
  */
 public class TwoMotorDrive {
     protected DcMotor motor1, motor2;
+    private int CurrentPosition = 0;
 
     public TwoMotorDrive(DcMotor motor1, DcMotor motor2) {
         this.motor1 = motor1;
@@ -93,15 +94,13 @@ public class TwoMotorDrive {
         return this.motor1.getChannelMode();
     }
 
-    public void test (int ticks) {
+    public boolean areWeThereYet (int goal_ticks) {
 
-        if (false){
-
+        if (goal_ticks == CurrentPosition){
+            return true;
+        }else{
+            return false;
         }
-        motor1.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        motor1.setTargetPosition(ticks);
-        motor1.setPower(1.0);
-
     }
 
 }
