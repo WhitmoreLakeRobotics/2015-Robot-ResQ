@@ -9,10 +9,12 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 public class TwoMotorDrive {
     protected DcMotor motor1, motor2;
     private int CurrentPosition = 0;
+    private boolean read_mode;
 
     public TwoMotorDrive(DcMotor motor1, DcMotor motor2) {
         this.motor1 = motor1;
         this.motor2 = motor2;
+        this.setReadMode();
     }
 
     public String getDeviceName() {
@@ -94,11 +96,30 @@ public class TwoMotorDrive {
         return this.motor1.getChannelMode();
     }
 
+    public void setReadMode () {
+        this.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        read_mode = true;
+    }
+
+    public void setWriteMode(){
+        this.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        read_mode = false;
+    }
+
     public boolean areWeThereYet (int goal_ticks) {
+        if (read_mode) {
+            CurrentPosition = this.getCurrentPosition();
+        }
 
         if (goal_ticks == CurrentPosition){
             return true;
         }else{
+            //is in write mode
+            if (!read_mode){
+                //do tell it to go
+            }else {
+                //do go to write mode
+            }
             return false;
         }
     }
