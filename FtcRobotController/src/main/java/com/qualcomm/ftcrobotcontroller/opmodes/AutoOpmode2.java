@@ -75,11 +75,11 @@ public class AutoOpmode2 extends OpMode {
             if (need_to_turn){
                 // turn to goal
                 //goToValue(turn_goal_left,leftW);
-                leftW.areWeThereYet(turn_goal_left);
-                //goToValue(turn_goal_right,rightW);
-                rightW.areWeThereYet(turn_goal_right);
 
-                if (leftW.getPower() == 0.0 && rightW.getPower() == 0.0){
+                //goToValue(turn_goal_right,rightW);
+
+
+                if (leftW.areWeThereYet(turn_goal_left) && rightW.areWeThereYet(turn_goal_right)){
                     //we are done turning
                     need_to_turn = false;
                 }
