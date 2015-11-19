@@ -84,7 +84,7 @@ public class TwoMotorDrive {
     }
 
     public int getCurrentPosition() {
-        return  this.motor1.getCurrentPosition();
+        return  this.CurrentPosition;
     }
 
     public void setChannelMode(DcMotorController.RunMode mode) {
@@ -113,6 +113,8 @@ public class TwoMotorDrive {
             return true;
         }
     }
+
+    public boolean getReadMode () {return read_mode;}
 
     public boolean areWeThereYet (int goal_ticks) {
 
