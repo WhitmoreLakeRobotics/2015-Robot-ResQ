@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
  */
 public class TwoMotorDrive {
     protected DcMotor motor1, motor2;
+    private DcMotorController motorController;
     private int CurrentPosition = 0;
     private boolean read_mode, moveing;
 
@@ -97,12 +98,12 @@ public class TwoMotorDrive {
     }
 
     public void setReadMode () {
-        this.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        this.motorController.setMotorControllerDeviceMode(DcMotorController.DeviceMode.READ_ONLY);
         read_mode = true;
     }
 
     public void setWriteMode(){
-        this.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        this.motorController.setMotorControllerDeviceMode(DcMotorController.DeviceMode.WRITE_ONLY);
         read_mode = false;
     }
     private boolean closeEnough (int a, int b ) {
