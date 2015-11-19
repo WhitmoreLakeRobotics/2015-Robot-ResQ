@@ -9,12 +9,12 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 public class TwoMotorDrive {
     protected DcMotor motor1, motor2;
     private int CurrentPosition = 0;
-    private boolean read_mode;
+    private boolean read_mode, moveing;
 
     public TwoMotorDrive(DcMotor motor1, DcMotor motor2) {
         this.motor1 = motor1;
         this.motor2 = motor2;
-        this.setReadMode();
+        this.setWriteMode();
     }
 
     public String getDeviceName() {
@@ -105,23 +105,53 @@ public class TwoMotorDrive {
         this.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         read_mode = false;
     }
+    private boolean closeEnough (int a, int b ) {
+        int range = 1440;
+        if ( Math.abs( a - b) >= range){
+            return false;
+        }else {
+            return true;
+        }
+    }
 
     public boolean areWeThereYet (int goal_ticks) {
+
+
         if (read_mode) {
+            //moving
             CurrentPosition = this.getCurrentPosition();
+            if (closeEnough(CurrentPosition, goal_ticks)){
+                //3
+                this.setWriteMode();
+                return true;
+            }else{
+                //2
+                return false;
+            }
+
+        }else {
+            //stop
+            if (closeEnough(CurrentPosition, goal_ticks)){
+                //4
+                this.motor1.setPower(0.0);
+                this.motor2.setPower(0.0);
+                return true;
+            }else{
+                //1
+                if (CurrentPosition > goal_ticks){
+                    this.motor1.setPower(-1.0);
+                    this.motor2.setPower(-1.0);
+                }else {
+                    this.motor1.setPower(1.0);
+                    this.motor2.setPower(1.0);
+                }
+                this.setReadMode();
+                return false;
+            }
+
         }
 
-        if (goal_ticks == CurrentPosition){
-            return true;
-        }else{
-            //is in write mode
-            if (!read_mode){
-                //do tell it to go
-            }else {
-                //do go to write mode
-            }
-            return false;
-        }
+
     }
 
 }
