@@ -15,6 +15,7 @@ public class TwoMotorDrive {
     public TwoMotorDrive(DcMotor motor1, DcMotor motor2) {
         this.motor1 = motor1;
         this.motor2 = motor2;
+        this.motorController = motor1.getController();
         this.setWriteMode();
     }
 
