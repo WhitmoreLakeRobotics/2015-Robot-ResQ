@@ -27,7 +27,7 @@ public class operatormode2 extends OpMode {
     private int fourLinkLower = 0;
     private DcMotor dc_drive_right2;
     private DcMotor dc_drive_left2;
-
+    private Servo L_Arm, R_Arm;
     private double test_pos;
     private double step_size = 0.05;
     private DcMotor dc_sweeper;
@@ -43,10 +43,13 @@ public class operatormode2 extends OpMode {
     public void init() {
         dc_left_controller = hardwareMap.dcMotorController.get("left");
         dc_right_controller = hardwareMap.dcMotorController.get("right");
-        test = hardwareMap.servo.get("test");
+       // test = hardwareMap.servo.get("test");
 
         servoDump = hardwareMap.servo.get("Dump");
         servoThrow = hardwareMap.servo.get("throw");
+        L_Arm = hardwareMap.servo.get("L_Arm");
+        R_Arm = hardwareMap.servo.get("R_Arm");
+
         /*servoController = hardwareMap.servoController.get("servoController");
         bucket_servo = hardwareMap.servo.get("bucket_servo");
         left_slide = hardwareMap.servo.get("left_slide");
@@ -65,22 +68,23 @@ public class operatormode2 extends OpMode {
                 ( DcMotorController.RunMode.RUN_USING_ENCODERS
                 );
         servoDump.setPosition(0.5);
+        servoThrow.setPosition(1.0);
+        L_Arm.setPosition(1.0);
     }
+
 
     @Override
     public void loop() {
+        if (gamepad2.left_bumper){
+            L_Arm.setPosition(0.0);
+        }else{
+            L_Arm.setPosition(1.0);
+        }
 
-        if(gamepad1.y){
-            test.setPosition(0.0 );
-        }
-        if(gamepad1.x){
-            test.setPosition(0.33 );
-        }
-        if(gamepad1.b){
-            test.setPosition(0.66 );
-        }
-        if (gamepad1.a){
-            test.setPosition(1.0);
+        if (gamepad2.right_bumper){
+            R_Arm.setPosition(1.0);
+        }else{
+            R_Arm.setPosition(0.0);
         }
 
         //testing servos 1 by 1

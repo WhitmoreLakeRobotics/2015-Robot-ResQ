@@ -42,8 +42,8 @@ public class AutoOpmode2 extends OpMode {
         left1.setDirection(DcMotor.Direction.REVERSE);
         left2.setDirection(DcMotor.Direction.REVERSE);
 
-        //left1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        //right1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        left1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        right1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 
         leftW = new TwoMotorDrive(left1, left2);
         rightW = new TwoMotorDrive(right1, right2);
@@ -85,9 +85,8 @@ public class AutoOpmode2 extends OpMode {
                 }
 
             }else {
-                //we are done
-                leftW.setPower(0.0);
-                rightW.setPower(0.0);
+                //(insert code here)
+
             }
         }
 
