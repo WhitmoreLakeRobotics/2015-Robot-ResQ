@@ -61,7 +61,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("K9TeleOp", K9TeleOp.class);
     //manager.register ("PushBotAuto", PushBotAuto.class);
     //manager.register ("PushBotManual", PushBotManual.class);
-    manager.register ("DriveOpmode", operatormode2.class);
+    manager.register ("TeleOp", operatormode2.class);
     //manager.register ("comptonEncoders", PushBotHardware2.class);
     manager.register("linearEncoders", linearTest.class);
     manager.register("AutoOpmode", AutoOpmode2.class);
