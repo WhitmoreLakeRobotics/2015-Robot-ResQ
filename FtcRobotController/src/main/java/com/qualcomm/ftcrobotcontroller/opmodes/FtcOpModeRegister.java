@@ -81,7 +81,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("I2cAddressChangeExample", LinearI2cAddressChange.class);
 
 
-    //manager.register("NxtTeleOp", NxtTeleOp.class);
+    manager.register("NxtTeleOp", NxtTeleOp.class);
     
     //manager.register("LinearK9TeleOp", LinearK9TeleOp.class);
     //manager.register("LinearIrExample", LinearIrExample.class);

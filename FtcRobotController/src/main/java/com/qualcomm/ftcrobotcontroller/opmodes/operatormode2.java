@@ -23,7 +23,7 @@ public class operatormode2 extends OpMode {
     private DcMotor dc_4link;
     private TwoMotorDrive rightWheel;
     private TwoMotorDrive leftWheel;
-    private int fourLinkUpper = 1920;
+    private int fourLinkUpper = 300;
     private int fourLinkLower = 0;
     private DcMotor dc_drive_right2;
     private DcMotor dc_drive_left2;
@@ -103,6 +103,7 @@ public class operatormode2 extends OpMode {
 
 
         dc_sweeper.setPower(gamepad2.left_stick_y);
+
         leftWheel.setPower(gamepad1.left_stick_y);
         rightWheel.setPower(gamepad1.right_stick_y);
 
