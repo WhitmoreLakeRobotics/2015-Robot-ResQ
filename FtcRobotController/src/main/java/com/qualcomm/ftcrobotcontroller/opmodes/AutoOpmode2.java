@@ -52,7 +52,7 @@ public class AutoOpmode2 extends OpMode {
 
     @Override
     public void loop(){
-        if (going_forward){
+       if (going_forward){
 
           if ( leftW.areWeThereYet(dist_goal_tick) &&
             rightW.areWeThereYet(dist_goal_tick))
