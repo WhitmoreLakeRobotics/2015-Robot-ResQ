@@ -20,7 +20,7 @@ public class AutoOpmode extends OpMode {
     private double dist_to_line, angle_goal, distance_goal;
     private int distance_goal_ticks_right, distance_goal_ticks_left;
     private encoderDistance encoder_distance;
-    private MafHelper mafHelper;
+    private MathHelper mathHelper;
     private DcMotorController left, right;
     private int turn_dist, turn_goal_left, turn_goal_right;
     private boolean turn_left = true;
@@ -62,10 +62,10 @@ public class AutoOpmode extends OpMode {
                 dist_to_line = dist_to_line_left + dist_to_line_right / 2.0;
                 dist_to_line = encoder_distance.ticksToInches(dist_to_line);
 
-                angle_goal = mafHelper.getAngleToEnd(dist_to_line);
-                distance_goal = mafHelper.getDistanceToEnd(dist_to_line);
+                angle_goal = mathHelper.getAngleToEnd(dist_to_line);
+                distance_goal = mathHelper.getDistanceToEnd(dist_to_line);
 
-                turn_dist_d = mafHelper.degreesToDistance(angle_goal);
+                turn_dist_d = mathHelper.degreesToDistance(angle_goal);
                 turn_dist_d = encoder_distance.inchesToTicks(turn_dist_d);
                 turn_dist = (int) turn_dist_d;
                 if (turn_left){
