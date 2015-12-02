@@ -40,6 +40,7 @@ public class MafHelper {
 
     public double degreesToDistance ( double degrees) {
         double out;
+
         out = (width_of_robutt * Math.PI)/(degrees);
         return  out;
     }
