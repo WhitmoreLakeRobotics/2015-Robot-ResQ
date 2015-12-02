@@ -11,13 +11,14 @@ import com.qualcomm.ftcrobotcontroller.opmodes.encoderDistance;
  */
 public class AutoOpmode2 extends OpMode {
 
-    private int final PRE_MOVE = 0;
-    private int final LEG_1_MOVE = 1;
-    private int final TURN_1_MOVE = 2;
-    private int final LEG_2_MOVE = 3;
-    private int final TRIP_STOP = 4;
+    private int  PRE_MOVE = 0;
+    private int  LEG_1_MOVE = 1;
+    private int  TURN_1_MOVE = 2;
+    private int  LEG_2_MOVE = 3;
+    private int  TRIP_STOP = 4;
     
-    private bool isPowerSet = false;
+    private boolean isPowerSet = false;
+    private boolean posAchieved =false;
     
     private DcMotor leftMotor2, leftMotor1, rightMotor1, rightMotor2;
     
@@ -40,11 +41,11 @@ public class AutoOpmode2 extends OpMode {
         leftMotor1.setDirection(DcMotor.Direction.REVERSE);
         leftMotor2.setDirection(DcMotor.Direction.REVERSE);
 
-        left1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        right1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        leftMotor1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        rightMotor1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 
-        leftW = new TwoMotorDrive(left1, left2);
-        rightW = new TwoMotorDrive(right1, right2);
+        leftW = new TwoMotorDrive(leftMotor1, leftMotor2);
+        rightW = new TwoMotorDrive(rightMotor1, rightMotor2);
 
     }
 
@@ -54,7 +55,7 @@ public class AutoOpmode2 extends OpMode {
     
     
       //steps to be completed prior to our attempt to move
-      if (tripState == PREMOVE) {
+      if (tripState == PRE_MOVE) {
 
 	tripState++;  //advance trip to the next level
     
@@ -64,18 +65,18 @@ public class AutoOpmode2 extends OpMode {
       //We have started moving
       if (tripState == LEG_1_MOVE) {
       
-        if (powerIsSet ) {
-	  leftMotor.setPower(1.0);
-	  rightMotor.setPower(1.0);
-	  powerIsSet = true;
+        if (isPowerSet ) {
+            leftW.setPower(1.0);
+            rightW.setPower(1.0);
+            isPowerSet = true;
         }
 	
 
-	if (posAchieved () ) {
+	if (posAchieved ) {
 	  tripState++;  //advance trip to the next level
-	  powerIsSet = false;
-	  leftMotor.setPowerFloat();
-	  rightMotor.setPowerFloat();
+	  isPowerSet = false;
+	  leftW.setPowerFloat();
+	  rightW.setPowerFloat();
 	}
       
       }
