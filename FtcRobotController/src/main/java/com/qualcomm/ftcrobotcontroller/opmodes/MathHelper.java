@@ -3,12 +3,12 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 /**
  * Created by techclub on 11/7/15.
  */
-public class MafHelper {
+public class MathHelper {
     private double end_goal_x = 42, end_goal_y = 31.4149;
     private double width_of_robutt = 15.75;
 
-    public static final double  wheelDia = 4.0;
-    public static final int ticksPerRev = 1440;
+    public static final double  wheelDia = 4.0;  //based on the robot wheel diameter
+    public static final int ticksPerRev = 1440;  // based on the Pitsco motor encoders
 
 
     public double getDistance(double x1, double y1, double x2, double y2 ){
@@ -46,13 +46,15 @@ public class MafHelper {
     }
 
 
-    public double  inches2ticks (double inches){
+    public int  inches2ticks (double inches){
 
-    double retTicks = 0;
+      return ((int)((Math.PI * wheelDia) / (ticksPerRev)));
 
-    retTicks =  (Math.PI * wheelDia) / (ticksPerRev);
-    return (retTicks);
+    }
 
-}
-
+    public double  ticks2inches (int ticks){
+      return ((wheelDia * Math.PI) * (ticks /ticksPerRev));
+    }
+    
+    
 }
