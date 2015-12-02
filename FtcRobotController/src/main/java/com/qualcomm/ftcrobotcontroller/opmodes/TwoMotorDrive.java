@@ -112,7 +112,7 @@ public class TwoMotorDrive {
         this.motorController.setMotorControllerDeviceMode(DcMotorController.DeviceMode.WRITE_ONLY);
         read_mode = false;
     }
-    private boolean closeEnough (int a, int b ) {
+    protected boolean closeEnough (int a, int b ) {
         int range = 1440;
         if ( Math.abs( a - b) >= range){
             return false;
