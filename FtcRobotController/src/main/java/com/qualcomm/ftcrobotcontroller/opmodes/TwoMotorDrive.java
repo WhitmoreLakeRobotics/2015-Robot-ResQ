@@ -8,9 +8,14 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
  */
 public class TwoMotorDrive {
     protected DcMotor motor1, motor2;
-    private DcMotorController motorController;
+    protected DcMotorController motorController;
     private int CurrentPosition = 0;
     private boolean read_mode, moveing;
+
+    public TwoMotorDrive() {
+        this.motor1= null;
+        this.motor2= null;
+    }
 
     public TwoMotorDrive(DcMotor motor1, DcMotor motor2) {
         this.motor1 = motor1;
