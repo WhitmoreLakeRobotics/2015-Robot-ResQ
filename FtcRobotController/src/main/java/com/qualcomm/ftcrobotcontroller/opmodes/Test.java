@@ -79,6 +79,7 @@ public class Test extends OpMode {
 
             // Update the reads after some loops, when the command has successfully propagated through.
             telemetry.addData("right motor", right1.getPower());
+            telemetry.addData("encoder ticks",right1.getCurrentPosition());
 
             // Only needed on Nxt devices, but not on USB devices
             right.setMotorControllerDeviceMode(DcMotorController.DeviceMode.WRITE_ONLY);
