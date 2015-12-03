@@ -23,11 +23,15 @@ public class TwoMotorDriveUnstable extends TwoMotorDrive {
 
     public void callme_atStartOfLoop (){
         if (loop_counter % 0 == 0){
-            motorController.setMotorControllerDeviceMode(DcMotorController.DeviceMode.READ_ONLY);
+            this.motorController.setMotorControllerDeviceMode(DcMotorController.DeviceMode.READ_ONLY);
         }
         // update stored values??
-
+        if (this.motorController.getMotorControllerDeviceMode() == DcMotorController.DeviceMode.READ_ONLY) {
+            this.power = this.motor1.getPower();
+            this.encoder = this.motor1.getCurrentPosition();
+        }
         //bump counter
+        this.devMode = this.motorController.getMotorControllerDeviceMode();
         loop_counter ++;
     }
     @Override
@@ -37,7 +41,15 @@ public class TwoMotorDriveUnstable extends TwoMotorDrive {
 
     @Override
     public int getCurrentPosition(){
-        return encoder;
+        return this.encoder;
+    }
+
+    @Override
+    public void setPower (double a) {
+        if (allowedToWrite()){
+            this.motor1.setPower(a);
+            this.motor2.setPower(a);
+        }
     }
 
     public TwoMotorDriveUnstable(DcMotor motor1, DcMotor motor2) {
@@ -52,42 +64,6 @@ public class TwoMotorDriveUnstable extends TwoMotorDrive {
         this.motor2 = old.motor2;
         this.motorController = old.motorController;
         this.loop_counter = 0;
-    }
-
-    public boolean areWeThereYet (int goal_ticks) {
-
-        if (read_mode) {
-            //moving
-            CurrentPosition = this.getCurrentPosition();
-            if (closeEnough(CurrentPosition, goal_ticks)){
-                //3
-                this.setWriteMode();
-                return true;
-            }else{
-                //2
-                return false;
-            }
-
-        }else {
-            //stop
-            if (closeEnough(CurrentPosition, goal_ticks)){
-                //4
-                this.motor1.setPower(0.0);
-                this.motor2.setPower(0.0);
-                return true;
-            }else{
-                //1
-                if (CurrentPosition > goal_ticks){
-                    this.motor1.setPower(-1.0);
-                    this.motor2.setPower(-1.0);
-                }else {
-                    this.motor1.setPower(1.0);
-                    this.motor2.setPower(1.0);
-                }
-                this.setReadMode();
-                return false;
-            }
-        }
     }
 
 }
