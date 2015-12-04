@@ -49,6 +49,7 @@ public class AutoOpmode2 extends OpMode {
 
     }
 
+
     @Override
     public void loop(){
 
