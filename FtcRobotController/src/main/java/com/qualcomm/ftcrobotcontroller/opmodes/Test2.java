@@ -39,6 +39,8 @@ public class Test2 extends OpMode {
 
     @Override
     public void loop () {
+        leftW.callme_atStartOfLoop();
+        rightW.callme_atStartOfLoop();
         if (leftW.getCurrentPosition() > go){
             leftW.setPower(0.5);
         }else{
