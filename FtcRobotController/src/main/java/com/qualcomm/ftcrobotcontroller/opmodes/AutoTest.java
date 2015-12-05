@@ -20,7 +20,7 @@ public class AutoTest extends OpMode {
     private static double degrees_to_turn = 90;
     private boolean fwd1 = false;
     private encoderDistance encoder_distance = new encoderDistance();
-    private MafHelper mafHelper = new MafHelper();
+    private MathHelper mafHelper = new MathHelper();
     private DcMotorController left, right;
     private int state = 0;
     private int turn_dist, turn_goal_left, turn_goal_right;
