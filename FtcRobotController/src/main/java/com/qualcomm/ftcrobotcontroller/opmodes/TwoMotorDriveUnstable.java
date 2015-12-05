@@ -11,7 +11,7 @@ public class TwoMotorDriveUnstable extends TwoMotorDrive {
     private DcMotorController.DeviceMode devMode;
 
     private int loop_counter = 0;
-    private int encoder =0;
+    private int encoder = 0;
     private double power = 0.0;
 
     private boolean read_mode;
@@ -22,7 +22,7 @@ public class TwoMotorDriveUnstable extends TwoMotorDrive {
     }
 
     public void callme_atStartOfLoop (){
-        if (loop_counter % 0 == 0){
+        if ( (loop_counter % 17) == 0){
             this.motorController.setMotorControllerDeviceMode(DcMotorController.DeviceMode.READ_ONLY);
         }
         // update stored values??
