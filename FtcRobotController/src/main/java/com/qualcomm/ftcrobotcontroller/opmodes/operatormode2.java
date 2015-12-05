@@ -69,7 +69,7 @@ public class operatormode2 extends OpMode {
                 );
         servoDump.setPosition(0.5);
         servoThrow.setPosition(1.0);
-       // L_Arm.setPosition(1.0);
+        R_Arm.setPosition(1.0);
     }
 
 
@@ -82,9 +82,9 @@ public class operatormode2 extends OpMode {
         }
 
         if (gamepad2.right_bumper){
-            R_Arm.setPosition(1.0);
-        }else{
             R_Arm.setPosition(0.0);
+        }else{
+            R_Arm.setPosition(1.0);
         }
 
         //testing servos 1 by 1
