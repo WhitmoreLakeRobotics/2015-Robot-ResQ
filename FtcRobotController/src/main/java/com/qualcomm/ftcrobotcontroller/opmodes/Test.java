@@ -13,6 +13,8 @@ public class Test extends OpMode {
     private static int go =14400;
     private DcMotorController.DeviceMode devMode;
     private int numOpLoops = 1;
+    private int left_pos;
+    private int right_pos;
 
     @Override
     public void init () {
@@ -37,10 +39,10 @@ public class Test extends OpMode {
         left1.setDirection(DcMotor.Direction.REVERSE);
         left2.setDirection(DcMotor.Direction.REVERSE);
 
-        left1.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        left1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         left2.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
 
-        right1.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        right1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         right2.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
     }
 
@@ -79,7 +81,13 @@ public class Test extends OpMode {
 
             // Update the reads after some loops, when the command has successfully propagated through.
             telemetry.addData("right motor", right1.getPower());
-            telemetry.addData("encoder ticks",right1.getCurrentPosition());
+
+            right_pos = right1.getCurrentPosition();
+            left_pos = left1.getCurrentPosition();
+            telemetry.addData("encoder ticks right",right1.getCurrentPosition());
+
+
+            telemetry.addData("encoder ticks left",left1.getCurrentPosition());
 
             // Only needed on Nxt devices, but not on USB devices
             right.setMotorControllerDeviceMode(DcMotorController.DeviceMode.WRITE_ONLY);

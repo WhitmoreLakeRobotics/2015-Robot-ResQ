@@ -69,16 +69,16 @@ public class operatormode2 extends OpMode {
                 );
         servoDump.setPosition(0.5);
         servoThrow.setPosition(1.0);
-        L_Arm.setPosition(1.0);
+       // L_Arm.setPosition(1.0);
     }
 
 
     @Override
     public void loop() {
         if (gamepad2.left_bumper){
-            L_Arm.setPosition(0.0);
-        }else{
             L_Arm.setPosition(1.0);
+        }else{
+            L_Arm.setPosition(0.0);
         }
 
         if (gamepad2.right_bumper){
@@ -108,7 +108,7 @@ public class operatormode2 extends OpMode {
         rightWheel.setPower(gamepad1.right_stick_y);
 
         fourlink_pos = dc_4link.getCurrentPosition();
-        telemetry.addData("encoder Ticks",fourlink_pos);
+        telemetry.addData("encoder 4link ticks",fourlink_pos);
 
         /*
         if (gamepad2.right_stick_y > 0.0){
