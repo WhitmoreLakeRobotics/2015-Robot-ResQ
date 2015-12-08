@@ -61,36 +61,34 @@ public class AutoOpmode2 extends OpMode {
       //steps to be completed prior to our attempt to move
       if (tripState == PRE_MOVE) {
 
-	tripState++;  //advance trip to the next level
+	       tripState++;  //advance trip to the next level
     
       }
     
     
       //We have started moving
       if (tripState == LEG_1_MOVE) {
-         legdist = 48;
-        if (!isPowerSet ) {
+         
+
+         legdist = 48;  //we wish to move 48 inches
+          if (!isPowerSet ) {
             leftW.setPower(1.0);
             rightW.setPower(1.0);
             isPowerSet = true;
 
-        }
+          }
           //right_pos =MathHelper.ticks2inches(rightW.getCurrentPosition());
           //left_pos = leftW.getCurrentPosition();
 
-       rightW.areWeThereYet(MathHelper.inches2ticks(legdist));
-       leftW.areWeThereYet(MathHelper.inches2ticks(legdist));
+          posAchieved = rightW.areWeThereYet(MathHelper.inches2ticks(legdist)) && 
+            leftW.areWeThereYet(MathHelper.inches2ticks(legdist));
 
-
-
-	if (posAchieved ) {
-	  tripState++;  //advance trip to the next level
-	  isPowerSet = false;
-	  leftW.setPowerFloat();
-	  rightW.setPowerFloat();
-
-	}
-      
+	       if (posAchieved ) {
+	         tripState++;  //advance trip to the next level
+	         isPowerSet = false;
+	         leftW.setPowerFloat();
+	         rightW.setPowerFloat();
+	        }
       }
       
       
