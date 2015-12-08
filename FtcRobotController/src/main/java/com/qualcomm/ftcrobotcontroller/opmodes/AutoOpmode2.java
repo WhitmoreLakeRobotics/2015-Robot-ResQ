@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.ftcrobotcontroller.opmodes.encoderDistance;
-
+import com.qualcomm.ftcrobotcontroller.opmodes.MathHelper.*;
 /**
  * Created by techclub on 11/9/15.
  */
@@ -16,6 +16,9 @@ public class AutoOpmode2 extends OpMode {
     private int  TURN_1_MOVE = 2;
     private int  LEG_2_MOVE = 3;
     private int  TRIP_STOP = 4;
+    private double right_pos = 0;
+    private double left_pos = 0;
+    private int legdist = 0;
     
     private boolean isPowerSet = false;
     private boolean posAchieved =false;
@@ -41,8 +44,8 @@ public class AutoOpmode2 extends OpMode {
         leftMotor1.setDirection(DcMotor.Direction.REVERSE);
         leftMotor2.setDirection(DcMotor.Direction.REVERSE);
 
-        leftMotor1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        rightMotor1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        leftMotor1.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        rightMotor1.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
 
         leftW = new TwoMotorDrive(leftMotor1, leftMotor2);
         rightW = new TwoMotorDrive(rightMotor1, rightMotor2);
@@ -65,19 +68,27 @@ public class AutoOpmode2 extends OpMode {
     
       //We have started moving
       if (tripState == LEG_1_MOVE) {
-      
-        if (isPowerSet ) {
+         legdist = 48;
+        if (!isPowerSet ) {
             leftW.setPower(1.0);
             rightW.setPower(1.0);
             isPowerSet = true;
+
         }
-	
+          //right_pos =MathHelper.ticks2inches(rightW.getCurrentPosition());
+          //left_pos = leftW.getCurrentPosition();
+
+       rightW.areWeThereYet(MathHelper.inches2ticks(legdist));
+       leftW.areWeThereYet(MathHelper.inches2ticks(legdist));
+
+
 
 	if (posAchieved ) {
 	  tripState++;  //advance trip to the next level
 	  isPowerSet = false;
 	  leftW.setPowerFloat();
 	  rightW.setPowerFloat();
+
 	}
       
       }

@@ -41,15 +41,9 @@ public class Test2 extends OpMode {
     public void loop () {
         leftW.callme_atStartOfLoop();
         rightW.callme_atStartOfLoop();
-        if (leftW.getCurrentPosition() > go){
-            leftW.setPower(0.5);
-        }else{
-            leftW.setPower(0.0);
-        }
-        if (rightW.getCurrentPosition() > go){
-            rightW.setPower(0.5);
-        }else{
-            rightW.setPower(0.0);
-        }
+        rightW.setPower(gamepad1.right_stick_y);
+        leftW.setPower(gamepad1.left_stick_y);
+        telemetry.addData("power left", leftW.getPower());
+        telemetry.addData("encoder left", leftW.getCurrentPosition());
     }
 }

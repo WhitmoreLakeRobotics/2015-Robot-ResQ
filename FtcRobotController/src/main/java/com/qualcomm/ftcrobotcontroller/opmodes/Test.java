@@ -73,6 +73,7 @@ public class Test extends OpMode {
             telemetry.addData("left motor", left1.getPower());
             telemetry.addData("RunMode: ", left1.getChannelMode().toString());
             left_pos = left1.getCurrentPosition();
+            telemetry.addData("encoder ticks left",left1.getCurrentPosition());
             // Only needed on Nxt devices, but not on USB devices
             left.setMotorControllerDeviceMode(DcMotorController.DeviceMode.WRITE_ONLY);
 
@@ -87,7 +88,7 @@ public class Test extends OpMode {
             telemetry.addData("encoder ticks right",right1.getCurrentPosition());
 
 
-            telemetry.addData("encoder ticks left",left1.getCurrentPosition());
+
 
             // Only needed on Nxt devices, but not on USB devices
             right.setMotorControllerDeviceMode(DcMotorController.DeviceMode.WRITE_ONLY);

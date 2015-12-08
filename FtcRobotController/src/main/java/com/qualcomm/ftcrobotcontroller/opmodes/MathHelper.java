@@ -46,15 +46,16 @@ public class MathHelper {
     }
 
 
-    public int  inches2ticks (double inches){
+    public static int  inches2ticks (double inches){
 
       return ((int)((Math.PI * wheelDia) / (ticksPerRev)));
 
     }
 
-    public double  ticks2inches (int ticks){
+    public static double  ticks2inches (int ticks){
       return ((wheelDia * Math.PI) * (ticks /ticksPerRev));
+
     }
-    
+
     
 }

@@ -113,7 +113,7 @@ public class TwoMotorDrive {
         read_mode = false;
     }
     protected boolean closeEnough (int a, int b ) {
-        int range = 1440;
+        int range = 360;
         if ( Math.abs( a - b) >= range){
             return false;
         }else {

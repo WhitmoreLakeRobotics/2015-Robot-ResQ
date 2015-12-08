@@ -40,7 +40,7 @@ public class operatormode2 extends OpMode {
     private double right_slide_out = 0.3;
     private int fourlink_pos;
     @Override
-    public void init() {
+    public void init()          {
         dc_left_controller = hardwareMap.dcMotorController.get("left");
         dc_right_controller = hardwareMap.dcMotorController.get("right");
        // test = hardwareMap.servo.get("test");
