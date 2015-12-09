@@ -18,8 +18,8 @@ public class AutoOpmode2 extends OpMode {
     private int  TRIP_STOP = 4;
     private double right_pos = 0;
     private double left_pos = 0;
-    private int legdist = 0;
-    
+    private int legticks = 0;  // ticks of travel for this lef of the trip
+
     private boolean isPowerSet = false;
     private boolean posAchieved =false;
     
@@ -53,6 +53,7 @@ public class AutoOpmode2 extends OpMode {
     }
 
 
+
     @Override
     public void loop(){
 
@@ -61,7 +62,7 @@ public class AutoOpmode2 extends OpMode {
       //steps to be completed prior to our attempt to move
       if (tripState == PRE_MOVE) {
 
-	       tripState++;  //advance trip to the next level
+	       nextLeg();  //advance trip to the next level
     
       }
     
@@ -69,51 +70,84 @@ public class AutoOpmode2 extends OpMode {
       //We have started moving
       if (tripState == LEG_1_MOVE) {
          
-
-         legdist = 48;  //we wish to move 48 inches
           if (!isPowerSet ) {
+            //leg 1 is 48 inches long
+            legticks=MathHelper.inches2ticks(48.0);
             leftW.setPower(1.0);
             rightW.setPower(1.0);
             isPowerSet = true;
-
           }
-          //right_pos =MathHelper.ticks2inches(rightW.getCurrentPosition());
-          //left_pos = leftW.getCurrentPosition();
-
-          posAchieved = rightW.areWeThereYet(MathHelper.inches2ticks(legdist)) && 
-            leftW.areWeThereYet(MathHelper.inches2ticks(legdist));
+         
+          posAchieved = rightW.areWeThereYet(legticks) && 
+            leftW.areWeThereYet(legticks);
 
 	       if (posAchieved ) {
-	         tripState++;  //advance trip to the next level
-	         isPowerSet = false;
-	         leftW.setPowerFloat();
-	         rightW.setPowerFloat();
-	        }
+          nextLeg();
+        }
       }
       
       
       if (tripState == TURN_1_MOVE) {
-      
-	tripState++;  //advance trip to the next level
-      
+        //setting one forward and one to reverse will cause us to turn
+        if (!isPowerSet ) {
+            // here we want each wheel to move 6 inches
+            legticks=MathHelper.inches2ticks(6.0);
+            leftW.setPower(-1.0);
+            rightW.setPower(1.0);
+            isPowerSet = true;
+        }
+
+        posAchieved = rightW.areWeThereYet(legticks) && 
+            leftW.areWeThereYet(legticks);
+
+	     if (posAchieved ) { 
+        nextLeg();
+        }
       }
       
 
       if (tripState == LEG_2_MOVE) {
-      
-	tripState++;  //advance trip to the next level
-      
+        
+        //setting one forward and one to reverse will cause us to turn
+        if (!isPowerSet ) {
+            legticks = MathHelper.inches2ticks(36);
+            leftW.setPower(1.0);
+            rightW.setPower(1.0);
+            isPowerSet = true;
+        }
+
+        posAchieved = rightW.areWeThereYet(legticks) && 
+            leftW.areWeThereYet(legticks);
+
+       if (posAchieved ) {
+          nextLeg();
+        }
       }
 
 
       // 
       if (tripState == TRIP_STOP) {
-      //motors Stop all motors
-	
-      
+        //motors Stop all motors
+        if (!isPowerSet ) {	
+          isPowerSet = true;
+          leftW.setPowerFloat();
+          rightW.setPowerFloat();
+          }
       }
-
-    
+ 
     }
+
+    private void nextLeg () {
+       tripState++;  //advance trip to the next level
+       isPowerSet = false;
+       leftW.setPowerFloat();
+       rightW.setPowerFloat();
+       //reset encoders so we can start each leg from 0.
+       leftW.setChannelMode(DcMotorController.RunMode. RESET_ENCODERS);
+       rightW.setChannelMode(DcMotorController.RunMode. RESET_ENCODERS);
+       leftW.setReadMode();
+       rightW.setReadMode();       
+    }
+
 }
 
