@@ -44,8 +44,8 @@ public class AutoOpmode2 extends OpMode {
         leftMotor1.setDirection(DcMotor.Direction.REVERSE);
         leftMotor2.setDirection(DcMotor.Direction.REVERSE);
 
-        leftMotor1.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-        rightMotor1.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        leftMotor1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        rightMotor1.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 
         leftW = new TwoMotorDrive(leftMotor1, leftMotor2);
         rightW = new TwoMotorDrive(rightMotor1, rightMotor2);
