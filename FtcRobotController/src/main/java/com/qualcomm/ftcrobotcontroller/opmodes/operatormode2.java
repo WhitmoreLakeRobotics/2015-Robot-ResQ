@@ -73,7 +73,7 @@ public class operatormode2 extends OpMode {
         dc_4link.setChannelMode
                 ( DcMotorController.RunMode.RUN_USING_ENCODERS
                 );
-        servoThrow.scaleRange(0.12, 0.8);
+        servoThrow.scaleRange(0.1, 0.8);
         servoDump.setPosition(0.5);
         servoThrow.setPosition(0.0);
         R_Arm.setPosition(0.88);
